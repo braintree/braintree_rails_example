@@ -39,6 +39,8 @@ GEM
     arel (6.0.3)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    braintree (2.47.0)
+      builder (>= 2.0.0)
     builder (3.2.2)
     byebug (6.0.2)
     coffee-rails (4.1.0)
@@ -139,6 +141,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  braintree (~> 2.47)
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
