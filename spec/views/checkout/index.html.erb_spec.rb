@@ -11,4 +11,14 @@ RSpec.describe "checkout/index.html.erb", type: :view do
     render
     expect(rendered).to match /your_client_token/
   end
+
+  it "includes the checkout form" do
+    render
+    expect(rendered).to match /<form id="checkout"/
+  end
+
+  it "includes the dropin payment-form div" do
+    render
+    expect(rendered).to match /<div id="payment-form"/
+  end
 end

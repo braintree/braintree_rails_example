@@ -1,4 +1,8 @@
 <h1>Checkout</h1>
+<%= form_tag("/checkout", method: "post", id: "checkout") do %>
+  <div id="payment-form"></div>
+  <input type="submit" value="Pay $10">
+<% end %>
 
 <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 <script>
