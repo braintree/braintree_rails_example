@@ -1,2 +1,9 @@
-<h1>Checkout#index</h1>
-<p>Find me in app/views/checkout/index.html.erb</p>
+<h1>Checkout</h1>
+
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<script>
+var client_token = "<%= @client_token %>";
+braintree.setup(client_token, "dropin", {
+  container: "payment-form"
+});
+</script>
