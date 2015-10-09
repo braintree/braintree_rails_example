@@ -7,6 +7,7 @@ RSpec.describe CheckoutController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
+      expect(Braintree::ClientToken).to receive(:generate).and_return("your_client_token")
       get :index
       expect(response).to have_http_status(:success)
     end
