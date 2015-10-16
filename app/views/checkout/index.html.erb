@@ -1,5 +1,7 @@
 <h1>Checkout</h1>
 <%= form_tag("/checkout", method: "post", id: "checkout") do %>
+  <label for="amount">Amount</label>
+  <input type="text" name="amount" id="amount" value="10.00">
   <div id="payment-form"></div>
   <input type="submit" value="Pay $10">
 <% end %>

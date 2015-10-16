@@ -17,6 +17,12 @@ RSpec.describe "checkout/index.html.erb", type: :view do
     expect(rendered).to match /<form id="checkout"/
   end
 
+  it "includes the amount input field" do
+    render
+    expect(rendered).to match /<label for="amount"/
+    expect(rendered).to match /<input type="text" name="amount" id="amount"/
+  end
+
   it "includes the dropin payment-form div" do
     render
     expect(rendered).to match /<div id="payment-form"/
