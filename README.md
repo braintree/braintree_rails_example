@@ -30,6 +30,10 @@ Integration tests make api calls to Braintree and require that you set up your B
 
 You can run both unit and integrations tests by calling `rake spec` on the command line.
 
+## Disclaimer
+
+This code is provided as is and is only intended to be used for illustration purposes. This code is not production-ready and is not meant to be used in a production environment. This repository is to be used as a tool to help merchants learn how to integrate with Braintree. Any use of this repository or any of its code in a production environment is highly discouraged.
+
 ## Pro Tips
 
  * Run `git update-index --assume-unchanged config/initializers/braintree.rb` to prevent yourself from committing your Braintree credentials.
