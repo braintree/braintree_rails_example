@@ -1,3 +1,3 @@
 <% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>"><%= value %></div>
+  <div class="alert alert-<%= key %>"><%= alert_string(value) %></div>
 <% end %>
