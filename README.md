@@ -29,3 +29,8 @@ Integration tests make api calls to Braintree and require that you set up your B
 ### Running All Tests
 
 You can run both unit and integrations tests by calling `rake spec` on the command line.
+
+## Pro Tips
+
+ * Run `git update-index --assume-unchanged config/initializers/braintree.rb` to prevent yourself from committing your Braintree credentials.
+ * Run `rails s -b 0.0.0.0` when launching Rails server to listen on all interfaces.
