@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'checkout' => 'checkout#index'
-  get 'checkout/index'
+  get 'checkout/index' => 'checkout#index'
   get 'checkout/:id' => 'checkout#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
