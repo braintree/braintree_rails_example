@@ -28,4 +28,15 @@ RSpec.shared_context 'mock_data' do
       ),
     )
   }
+
+  let(:sale_error_result) {
+    double(Braintree::ErrorResult,
+      success?: false,
+      message: "Amount is an invalid format. Unknown payment_method_nonce.",
+      errors: [
+        OpenStruct.new(code: 81503, message: "Amount is an invalid format."),
+        OpenStruct.new(code: 91565, message: "Unknown payment_method_nonce."),
+       ]
+    )
+  }
 end

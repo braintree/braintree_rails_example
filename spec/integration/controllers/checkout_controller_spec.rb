@@ -41,4 +41,22 @@ RSpec.describe CheckoutController, type: :controller do
       expect(response.body).to match Regexp.new(transaction.credit_card_details.customer_location)
     end
   end
+
+  describe "POST #create" do
+    it "creates a transaction and redirects to checkout#show" do
+      amount = "#{random.rand(100)}.#{random.rand(100)}"
+      post :create, payment_method_nonce: "fake-valid-nonce", amount: amount
+
+      expect(response).to redirect_to(/\/checkout\/\w+/)
+    end
+
+    context "when transaction is not succesful" do
+      it "redirects to the checkout_path" do
+        amount = "#{random.rand(100)}.#{random.rand(100)}"
+        post :create, payment_method_nonce: "fake-consumed-nonce", amount: amount
+
+        expect(response).to redirect_to(checkout_path)
+      end
+    end
+  end
 end

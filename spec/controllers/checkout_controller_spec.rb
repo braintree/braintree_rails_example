@@ -53,4 +53,55 @@ RSpec.describe CheckoutController, type: :controller do
       expect(response.body).to match /1234567890/
     end
   end
+
+  describe "POST #create" do
+    it "returns http success" do
+      amount = "10.00"
+      nonce = "fake-valid-nonce"
+
+      expect(Braintree::Transaction).to receive(:sale).with(
+        amount: amount,
+        payment_method_nonce: nonce,
+      ).and_return(
+        Braintree::SuccessfulResult.new(transaction: mock_transaction)
+      )
+
+      post :create, payment_method_nonce: nonce, amount: amount
+
+      expect(response).to redirect_to("/checkout/#{mock_transaction.id}")
+    end
+
+    context "when braintree returns an error" do
+      it "displays the errors" do
+        amount = "not_a_valid_amount"
+        nonce = "not_a_valid_nonce"
+
+        expect(Braintree::Transaction).to receive(:sale).with(
+          amount: amount,
+          payment_method_nonce: nonce,
+        ).and_return(sale_error_result)
+
+        post :create, payment_method_nonce: nonce, amount: amount
+
+        expect(flash[:error]).to eq([
+          "Error: 81503: Amount is an invalid format.",
+          "Error: 91565: Unknown payment_method_nonce.",
+        ])
+      end
+
+      it "redirects to the checkout_path" do
+        amount = "not_a_valid_amount"
+        nonce = "not_a_valid_nonce"
+
+        expect(Braintree::Transaction).to receive(:sale).with(
+          amount: amount,
+          payment_method_nonce: nonce,
+        ).and_return(sale_error_result)
+
+        post :create, payment_method_nonce: nonce, amount: amount
+
+        expect(response).to redirect_to(checkout_path)
+      end
+    end
+  end
 end
