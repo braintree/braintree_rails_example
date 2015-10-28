@@ -9,8 +9,8 @@ An example Braintree integration for Ruby on Rails
 2. Bundle
   `bundle`
 
-3. Add your Braintree API credentials to `config/initializers/braintree.rb`
-   Credentials can be found by navigating to Account > My user > View API Keys in the Braintree control panel.
+3. Copy the `example.env` file to `.env` and fill in your Braintree API credentials
+   Credentials can be found by navigating to Account > My user > View API Keys in the Braintree control panel. Full instructions can be [found on our support site](https://articles.braintreepayments.com/control-panel/important-gateway-credentials#api-credentials).
 
 4. Start rails
    `rails server`
@@ -32,7 +32,6 @@ You can run both unit and integrations tests by calling `rake spec` on the comma
 
 ## Pro Tips
 
- * Run `git update-index --assume-unchanged config/initializers/braintree.rb` to prevent yourself from committing your Braintree credentials.
  * Run `rails s -b 0.0.0.0` when launching Rails server to listen on all interfaces.
 
 ## Disclaimer
