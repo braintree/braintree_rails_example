@@ -1,8 +1,6 @@
-# Your should not store your Braintree credentials in source code. This is done for demonstration purposes.
+Dotenv.load
 
-# Instructions for accessing your api credentials can be found at:
-# https://articles.braintreepayments.com/control-panel/important-gateway-credentials#api-credentials
-Braintree::Configuration.environment = :sandbox
-Braintree::Configuration.merchant_id = "use_your_merchant_id"
-Braintree::Configuration.public_key  = "use_your_public_key"
-Braintree::Configuration.private_key = "use_your_private_key"
+Braintree::Configuration.environment = ENV["BT_ENVIRONMENT"].to_sym
+Braintree::Configuration.merchant_id = ENV["BT_MERCHANT_ID"]
+Braintree::Configuration.public_key  = ENV["BT_PUBLIC_KEY"]
+Braintree::Configuration.private_key = ENV["BT_PRIVATE_KEY"]
