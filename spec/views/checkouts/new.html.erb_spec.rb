@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "checkouts/index.html.erb", type: :view do
+RSpec.describe "checkouts/new.html.erb", type: :view do
   it "renders the checkout header" do
     render
     expect(rendered).to match /Checkout/

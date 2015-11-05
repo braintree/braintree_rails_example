@@ -27,5 +27,11 @@ RSpec.describe "checkouts/show.html.erb", type: :view do
     render
     expect(rendered).to match /Customer Details/
   end
+
+  it "includes the 'Return to checkout page' link" do
+    render
+    expect(rendered).to match /Return to checkout page/
+    expect(rendered).to match /checkouts\/new/
+  end
 end
 
