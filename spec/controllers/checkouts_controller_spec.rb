@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/mock_data'
 
-RSpec.describe CheckoutController, type: :controller do
+RSpec.describe CheckoutsController, type: :controller do
   render_views
   include_context 'mock_data'
 
@@ -68,7 +68,7 @@ RSpec.describe CheckoutController, type: :controller do
 
       post :create, payment_method_nonce: nonce, amount: amount
 
-      expect(response).to redirect_to("/checkout/#{mock_transaction.id}")
+      expect(response).to redirect_to("/checkouts/#{mock_transaction.id}")
     end
 
     context "when braintree returns an error" do
@@ -89,7 +89,7 @@ RSpec.describe CheckoutController, type: :controller do
         ])
       end
 
-      it "redirects to the checkout_path" do
+      it "redirects to the checkouts_path" do
         amount = "not_a_valid_amount"
         nonce = "not_a_valid_nonce"
 
@@ -100,7 +100,7 @@ RSpec.describe CheckoutController, type: :controller do
 
         post :create, payment_method_nonce: nonce, amount: amount
 
-        expect(response).to redirect_to(checkout_path)
+        expect(response).to redirect_to(checkouts_path)
       end
     end
   end
