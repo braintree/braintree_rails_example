@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
-RSpec.describe CheckoutController, type: :controller do
+RSpec.describe CheckoutsController, type: :controller do
   render_views
 
   let!(:random) { Random.new }
@@ -43,19 +43,19 @@ RSpec.describe CheckoutController, type: :controller do
   end
 
   describe "POST #create" do
-    it "creates a transaction and redirects to checkout#show" do
+    it "creates a transaction and redirects to checkouts#show" do
       amount = "#{random.rand(100)}.#{random.rand(100)}"
       post :create, payment_method_nonce: "fake-valid-nonce", amount: amount
 
-      expect(response).to redirect_to(/\/checkout\/\w+/)
+      expect(response).to redirect_to(/\/checkouts\/\w+/)
     end
 
     context "when transaction is not succesful" do
-      it "redirects to the checkout_path" do
+      it "redirects to the checkouts_path" do
         amount = "#{random.rand(100)}.#{random.rand(100)}"
         post :create, payment_method_nonce: "fake-consumed-nonce", amount: amount
 
-        expect(response).to redirect_to(checkout_path)
+        expect(response).to redirect_to(checkouts_path)
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/mock_data'
 
-RSpec.describe "checkout/show.html.erb", type: :view do
+RSpec.describe "checkouts/show.html.erb", type: :view do
   include_context 'mock_data'
 
   before(:each) do

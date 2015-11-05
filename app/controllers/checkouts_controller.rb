@@ -1,4 +1,4 @@
-class CheckoutController < ApplicationController
+class CheckoutsController < ApplicationController
   def index
     @client_token = Braintree::ClientToken.generate
   end
@@ -17,11 +17,11 @@ class CheckoutController < ApplicationController
     )
 
     if result.success?
-      redirect_to "/checkout/#{result.transaction.id}"
+      redirect_to checkout_path(result.transaction.id)
     else
       error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
       flash[:error] = error_messages
-      redirect_to checkout_path
+      redirect_to checkouts_path
     end
   end
 end

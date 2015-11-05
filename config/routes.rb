@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  root 'checkout#index'
+  root 'checkouts#index'
 
-  get 'checkout' => 'checkout#index'
-  get 'checkout/index' => 'checkout#index'
-  post 'checkout' => 'checkout#create'
-  get 'checkout/:id' => 'checkout#show'
+  resources :checkouts,  only: [:index, :create, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
