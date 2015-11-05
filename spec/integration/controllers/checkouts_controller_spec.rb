@@ -6,9 +6,9 @@ RSpec.describe CheckoutsController, type: :controller do
 
   let!(:random) { Random.new }
 
-  describe "GET #index" do
+  describe "GET #new" do
     it "retrieves the Braintree client token and adds it to the page" do
-      get :index
+      get :new
       client_token = assigns(:client_token)
       expect(client_token).to_not be_nil
       expect(response.body).to match /#{client_token}/
@@ -51,11 +51,11 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     context "when transaction is not succesful" do
-      it "redirects to the checkouts_path" do
+      it "redirects to the new_checkout_path" do
         amount = "#{random.rand(100)}.#{random.rand(100)}"
         post :create, payment_method_nonce: "fake-consumed-nonce", amount: amount
 
-        expect(response).to redirect_to(checkouts_path)
+        expect(response).to redirect_to(new_checkout_path)
       end
     end
   end

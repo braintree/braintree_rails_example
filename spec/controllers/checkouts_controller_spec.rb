@@ -5,16 +5,16 @@ RSpec.describe CheckoutsController, type: :controller do
   render_views
   include_context 'mock_data'
 
-  describe "GET #index" do
+  describe "GET #new" do
     it "returns http success" do
       expect(Braintree::ClientToken).to receive(:generate).and_return("your_client_token")
-      get :index
+      get :new
       expect(response).to have_http_status(:success)
     end
 
     it "adds the Braintree client token to the page" do
       expect(Braintree::ClientToken).to receive(:generate).and_return("your_client_token")
-      get :index
+      get :new
       expect(response.body).to match /your_client_token/
     end
   end
@@ -89,7 +89,7 @@ RSpec.describe CheckoutsController, type: :controller do
         ])
       end
 
-      it "redirects to the checkouts_path" do
+      it "redirects to the new_checkout_path" do
         amount = "not_a_valid_amount"
         nonce = "not_a_valid_nonce"
 
@@ -100,7 +100,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
         post :create, payment_method_nonce: nonce, amount: amount
 
-        expect(response).to redirect_to(checkouts_path)
+        expect(response).to redirect_to(new_checkout_path)
       end
     end
   end

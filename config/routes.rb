@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'checkouts#index'
+  root 'checkouts#new'
 
-  resources :checkouts,  only: [:index, :create, :show]
+  resources :checkouts,  only: [:new, :create, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
