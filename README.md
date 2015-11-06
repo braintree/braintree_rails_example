@@ -24,7 +24,7 @@ calling `rake` on the command line.
 
 ### Running Integration Tests
 
-Integration tests make api calls to Braintree and require that you set up your Braintree credentials. You can run this project's integration tests by adding your sandbox api credentials to `config/initializers/braintree.rb` and calling `rake spec:integration` on the command line.
+Integration tests make api calls to Braintree and require that you set up your Braintree credentials. You can run this project's integration tests by adding your sandbox api credentials to `.env` and calling `rake spec:integration` on the command line.
 
 ### Running All Tests
 
