@@ -47,7 +47,7 @@ RSpec.describe CheckoutsController, type: :controller do
       amount = "#{random.rand(100)}.#{random.rand(100)}"
       post :create, payment_method_nonce: "fake-valid-nonce", amount: amount
 
-      expect(response).to redirect_to(/\/checkouts\/\w+/)
+      expect(response).to redirect_to(/\/checkouts\/[^new$][\w+]/)
     end
 
     context "when transaction is not succesful" do
