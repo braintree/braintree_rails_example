@@ -18,6 +18,9 @@ class CheckoutsController < ApplicationController
 
     if result.success?
       redirect_to checkout_path(result.transaction.id)
+    elsif result.transaction
+      flash[:error] = "Transaction status - #{result.transaction.status}"
+      redirect_to checkout_path(result.transaction.id)
     else
       error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
       flash[:error] = error_messages

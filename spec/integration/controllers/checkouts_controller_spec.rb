@@ -50,8 +50,15 @@ RSpec.describe CheckoutsController, type: :controller do
       expect(response).to redirect_to(/\/checkouts\/[^new$][\w+]/)
     end
 
-    context "when transaction is not succesful" do
-      it "redirects to the new_checkout_path" do
+    context "when its unsuccessful" do
+      it "creates a transaction and displays status when there are processor errors" do
+        amount = "2000"
+        post :create, payment_method_nonce: "fake-valid-nonce", amount: amount
+
+        expect(response).to redirect_to(/\/checkouts\/[^new$][\w+]/)
+      end
+
+      it "redirects to the new_checkout_path when the transaction was invalid" do
         amount = "#{random.rand(100)}.#{random.rand(100)}"
         post :create, payment_method_nonce: "fake-consumed-nonce", amount: amount
 

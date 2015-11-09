@@ -33,10 +33,18 @@ RSpec.shared_context 'mock_data' do
     double(Braintree::ErrorResult,
       success?: false,
       message: "Amount is an invalid format. Unknown payment_method_nonce.",
+      transaction: nil,
       errors: [
         OpenStruct.new(code: 81503, message: "Amount is an invalid format."),
         OpenStruct.new(code: 91565, message: "Unknown payment_method_nonce."),
        ]
+    )
+  }
+
+  let(:processor_declined_result) {
+    double(Braintree::ErrorResult,
+      success?: false,
+      transaction: OpenStruct.new(status: "processor_declined", id: "my_id"),
     )
   }
 end
