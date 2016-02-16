@@ -4,10 +4,28 @@
   <title>BraintreeRailsExample</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= favicon_link_tag "favicon.png" %>
   <%= csrf_meta_tags %>
 </head>
 <body data-no-turbolink>
-  <%= render partial: "layouts/notifications" %>
-  <%= yield %>
+  <header class="main">
+  <div class="content">
+    <div class="brand">PSEUDO<strong>SHOP</strong></div>
+    <div class="notice-wrapper">
+      <%= render partial: "layouts/notifications" %>
+    </div>
+  </header>
+
+  <div class="wrapper">
+    <%= yield %>
+  </div>
+
+  <footer class="braintree">
+    <div class="content">
+      <a href="https://developers.braintreepayments.com/guides/drop-in" target="_blank">
+        <strong>Braintree</strong> Drop-in Demo
+      </a>
+    </div>
+  </footer>
 </body>
 </html>

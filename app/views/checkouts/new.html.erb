@@ -1,15 +1,37 @@
-<h1>Checkout</h1>
-<%= form_tag("/checkouts", method: "post", id: "checkout") do %>
-  <label for="amount">Amount</label>
-  <input type="text" name="amount" id="amount" value="10.00">
-  <div id="payment-form"></div>
-  <input type="submit" value="Pay Now">
-<% end %>
+<div class="checkout active container">
+  <div class="content">
+    <header>
+      <h1>Checkout</h1>
+      <p>Make a test purchase using PayPal or a card</p>
+    </header>
+
+    <%= form_tag("/checkouts", method: "", id: "payment-form") do %>
+      <section>
+        <div class="bt-drop-in-wrapper">
+          <div id="placeholder"></div>
+        </div>
+
+        <label for="amount">
+          <span class="input-label">Amount</span>
+          <div class="input-wrapper amount-wrapper">
+            <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+          </div>
+        </label>
+       </section>
+
+        <button class="button" type="submit"><span>Purchase</span></button>
+    <% end %>
+  </div>
+</div>
 
 <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 <script>
+  var checkout = new Demo({
+    development: true
+  });
+
   var client_token = "<%= @client_token %>";
   braintree.setup(client_token, "dropin", {
-    container: "payment-form"
+    container: "placeholder"
   });
 </script>
