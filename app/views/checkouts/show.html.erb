@@ -1,119 +1,147 @@
-<h1>Transaction <%= @transaction.id %></h1>
-<h2>Details</h2>
-<p>
-  <table>
-    <tr>
-      <th>Property</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>id</td>
-      <td><%= @transaction.id %></td>
-    </tr>
-    <tr>
-      <td>type</td>
-      <td><%= @transaction.type %></td>
-    </tr>
-    <tr>
-      <td>amount</td>
-      <td><%= @transaction.amount %></td>
-    </tr>
-    <tr>
-      <td>status</td>
-      <td><%= @transaction.status %></td>
-    </tr>
-    <tr>
-      <td>created_at</td>
-      <td><%= @transaction.created_at %></td>
-    </tr>
-    <tr>
-      <td>updated_at</td>
-      <td><%= @transaction.updated_at %></td>
-    </tr>
-  </table>
-</p>
+<div class="wrapper">
+  <div class="success container">
+    <div class="content">
+      <h1>Sweet Success!</h1>
 
-<h2>Credit Card Details</h2>
-<p>
-  <table>
-    <tr>
-      <th>Property</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>token</td>
-      <td><%= @transaction.credit_card_details.token %></td>
-    </tr>
-    <tr>
-      <td>bin</td>
-      <td><%= @transaction.credit_card_details.bin %></td>
-    </tr>
-    <tr>
-      <td>last_4</td>
-      <td><%= @transaction.credit_card_details.last_4 %></td>
-    </tr>
-    <tr>
-      <td>card_type</td>
-      <td><%= @transaction.credit_card_details.card_type %></td>
-    </tr>
-    <tr>
-      <td>expiration_date</td>
-      <td><%= @transaction.credit_card_details.expiration_date %></td>
-    </tr>
-    <tr>
-      <td>cardholder_name</td>
-      <td><%= @transaction.credit_card_details.cardholder_name %></td>
-    </tr>
-    <tr>
-      <td>customer_location</td>
-      <td><%= @transaction.credit_card_details.customer_location %></td>
-    </tr>
-  </table>
-</p>
+      <section>
+        <p>Your test transaction has been successfully processed. Test another transaction or see the Braintree API response.</p>
+      </section>
 
-<h2>Customer Details</h2>
-<p>
-  <table>
-    <tr>
-      <th>Property</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>id</td>
-      <td><%= @transaction.customer_details.id %></td>
-    </tr>
-    <tr>
-      <td>first_name</td>
-      <td><%= @transaction.customer_details.first_name %></td>
-    </tr>
-    <tr>
-      <td>last_name</td>
-      <td><%= @transaction.customer_details.last_name %></td>
-    </tr>
-    <tr>
-      <td>email</td>
-      <td><%= @transaction.customer_details.email %></td>
-    </tr>
-    <tr>
-      <td>company</td>
-      <td><%= @transaction.customer_details.company %></td>
-    </tr>
-    <tr>
-      <td>website</td>
-      <td><%= @transaction.customer_details.website %></td>
-    </tr>
-    <tr>
-      <td>phone</td>
-      <td><%= @transaction.customer_details.phone %></td>
-    </tr>
-    <tr>
-      <td>fax</td>
-      <td><%= @transaction.customer_details.fax %></td>
-    </tr>
-  </table>
-</p>
+      <section>
+        <a class="button primary back" href="/checkouts/new">
+          <span>Test Another Transaction</span>
+        </a>
+      </section>
+    </div>
+  </div>
+</div>
 
-<p>
-  <%= link_to "Return to checkout page", new_checkout_path %>
-</p>
+<aside class="response drawer dark">
+  <header>
+    <div class="content compact">
+      <a href="https://developers.braintreepayments.com" class="braintree" target="_blank">Braintree</a>
+    </div>
+  </header>
 
+  <article class="content compact">
+    <section>
+      <h5>Transaction</h5>
+
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th>id</th>
+            <td><%= @transaction.id %></td>
+          </tr>
+          <tr>
+            <th>type</th>
+            <td><%= @transaction.type %></td>
+          </tr>
+          <tr>
+            <th>amount</th>
+            <td><%= @transaction.amount %></td>
+          </tr>
+          <tr>
+            <th>status</th>
+            <td><%= @transaction.status %></td>
+          </tr>
+          <tr>
+            <th>created_at</th>
+            <td><%= @transaction.created_at %></td>
+          </tr>
+          <tr>
+            <th>updated_at</th>
+            <td><%= @transaction.updated_at %></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h5>Payment</h5>
+
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th>token</th>
+            <td><%= @transaction.credit_card_details.token %></td>
+          </tr>
+          <tr>
+            <th>bin</th>
+            <td><%= @transaction.credit_card_details.bin %></td>
+          </tr>
+          <tr>
+            <th>last_4</th>
+            <td><%= @transaction.credit_card_details.last_4 %></td>
+          </tr>
+          <tr>
+            <th>card_type</th>
+            <td><%= @transaction.credit_card_details.card_type %></td>
+          </tr>
+          <tr>
+            <th>expiration_date</th>
+            <td><%= @transaction.credit_card_details.expiration_date %></td>
+          </tr>
+          <tr>
+            <th>cardholder_name</th>
+            <td><%= @transaction.credit_card_details.cardholder_name %></td>
+          </tr>
+          <tr>
+            <th>customer_location</th>
+            <td><%= @transaction.credit_card_details.customer_location %></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h5>Customer</h5>
+
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th>id</th>
+            <td><%= @transaction.customer_details.id %></td>
+          </tr>
+          <tr>
+            <th>first_name</th>
+            <td><%= @transaction.customer_details.first_name %></td>
+          </tr>
+          <tr>
+            <th>last_name</th>
+            <td><%= @transaction.customer_details.last_name %></td>
+          </tr>
+          <tr>
+            <th>email</th>
+            <td><%= @transaction.customer_details.email %></td>
+          </tr>
+          <tr>
+            <th>company</th>
+            <td><%= @transaction.customer_details.company %></td>
+          </tr>
+          <tr>
+            <th>website</th>
+            <td><%= @transaction.customer_details.website %></td>
+          </tr>
+          <tr>
+            <th>phone</th>
+            <td><%= @transaction.customer_details.phone %></td>
+          </tr>
+          <tr>
+            <th>fax</th>
+            <td><%= @transaction.customer_details.fax %></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <p class="center small">Integrate with the Braintree SDK for a secure and seamless checkout</p>
+    </section>
+    <section>
+      <a class="button secondary full" href="https://developers.braintreepayments.com/guides/drop-in" target="_blank">
+        <span>See the Docs</span>
+      </a>
+    </section>
+  </article>
+</aside>

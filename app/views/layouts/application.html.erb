@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>BraintreeRailsExample</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="assets/images/favicon.png?v=3">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= favicon_link_tag "favicon.png" %>
@@ -9,23 +11,36 @@
 </head>
 <body data-no-turbolink>
   <header class="main">
-  <div class="content">
-    <div class="brand">PSEUDO<strong>SHOP</strong></div>
+    <div class="container wide">
+      <div class="content slim">
+        <div class="set">
+          <div class="fill">
+            <a class="pseudoshop" href="/">PSEUDO<strong>SHOP</strong></a>
+          </div>
+
+          <div class="fit">
+            <a class="braintree" href="https://developers.braintreepayments.com/guides/drop-in" target="_blank">Braintree</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="notice-wrapper">
-      <%= render partial: "layouts/notifications" %>
+      <div class="notice error notice-error">
+        <span class="notice-message">
+          Sorry, there was an error. Please try again.
+        </span>
+      </div>
+
+      <div class="notice error notice-declined">
+        <span class="notice-message">
+          The transaction was declined. Please try again.
+        </span>
+      </div>
     </div>
   </header>
 
-  <div class="wrapper">
-    <%= yield %>
-  </div>
+  <%= yield %>
 
-  <footer class="braintree">
-    <div class="content">
-      <a href="https://developers.braintreepayments.com/guides/drop-in" target="_blank">
-        <strong>Braintree</strong> Drop-in Demo
-      </a>
-    </div>
-  </footer>
 </body>
 </html>

@@ -1,26 +1,32 @@
-<div class="checkout active container">
-  <div class="content">
-    <header>
-      <h1>Checkout</h1>
-      <p>Make a test purchase using PayPal or a card</p>
-    </header>
+<div class="wrapper">
+  <div class="checkout container">
+    <div class="content">
 
-    <%= form_tag("/checkouts", method: "", id: "payment-form") do %>
-      <section>
-        <div class="bt-drop-in-wrapper">
-          <div id="placeholder"></div>
-        </div>
+      <header>
+        <h1>Hi, <br>Let's test a transaction</h1>
+        <p>
+          Make a test payment with Braintree using PayPal or a card
+        </p>
+      </header>
 
-        <label for="amount">
-          <span class="input-label">Amount</span>
-          <div class="input-wrapper amount-wrapper">
-            <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+      <%= form_tag("/checkouts", method: "", id: "payment-form") do %>
+        <section>
+          <div class="bt-drop-in-wrapper">
+            <div id="bt-dropin"></div>
           </div>
-        </label>
-       </section>
 
-        <button class="button" type="submit"><span>Purchase</span></button>
-    <% end %>
+          <label for="amount">
+            <span class="input-label">Amount</span>
+            <div class="input-wrapper amount-wrapper">
+              <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+            </div>
+          </label>
+        </section>
+
+        <button class="button" type="submit"><span>Test Transaction</span></button>
+      <% end %>
+
+    </div>
   </div>
 </div>
 
@@ -32,6 +38,6 @@
 
   var client_token = "<%= @client_token %>";
   braintree.setup(client_token, "dropin", {
-    container: "placeholder"
+    container: "bt-dropin"
   });
 </script>
