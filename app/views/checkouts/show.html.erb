@@ -94,46 +94,48 @@
       </table>
     </section>
 
-    <section>
-      <h5>Customer</h5>
+    <% if @transaction.customer_details.id %>
+      <section>
+        <h5>Customer</h5>
 
-      <table cellpadding="0" cellspacing="0">
-        <tbody>
-          <tr>
-            <th>id</th>
-            <td><%= @transaction.customer_details.id %></td>
-          </tr>
-          <tr>
-            <th>first_name</th>
-            <td><%= @transaction.customer_details.first_name %></td>
-          </tr>
-          <tr>
-            <th>last_name</th>
-            <td><%= @transaction.customer_details.last_name %></td>
-          </tr>
-          <tr>
-            <th>email</th>
-            <td><%= @transaction.customer_details.email %></td>
-          </tr>
-          <tr>
-            <th>company</th>
-            <td><%= @transaction.customer_details.company %></td>
-          </tr>
-          <tr>
-            <th>website</th>
-            <td><%= @transaction.customer_details.website %></td>
-          </tr>
-          <tr>
-            <th>phone</th>
-            <td><%= @transaction.customer_details.phone %></td>
-          </tr>
-          <tr>
-            <th>fax</th>
-            <td><%= @transaction.customer_details.fax %></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+        <table cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <th>id</th>
+              <td><%= @transaction.customer_details.id %></td>
+            </tr>
+            <tr>
+              <th>first_name</th>
+              <td><%= @transaction.customer_details.first_name %></td>
+            </tr>
+            <tr>
+              <th>last_name</th>
+              <td><%= @transaction.customer_details.last_name %></td>
+            </tr>
+            <tr>
+              <th>email</th>
+              <td><%= @transaction.customer_details.email %></td>
+            </tr>
+            <tr>
+              <th>company</th>
+              <td><%= @transaction.customer_details.company %></td>
+            </tr>
+            <tr>
+              <th>website</th>
+              <td><%= @transaction.customer_details.website %></td>
+            </tr>
+            <tr>
+              <th>phone</th>
+              <td><%= @transaction.customer_details.phone %></td>
+            </tr>
+            <tr>
+              <th>fax</th>
+              <td><%= @transaction.customer_details.fax %></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    <% end %>
 
     <section>
       <p class="center small">Integrate with the Braintree SDK for a secure and seamless checkout</p>
