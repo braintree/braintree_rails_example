@@ -2,12 +2,16 @@ function Demo(config){
   this.config = config;
   this.config.development = config.development || false;
 
+  this.bt = $('.braintree');
   this.paymentForm = $('#' + config.formID);
   this.inputs = $('input[type=text], input[type=email], input[type=tel]');
   this.button = this.paymentForm.find('.button');
   this.checkout = $('.checkout');
   this.success = $('.success');
   this.hashLinks = $('a[href^=#]');
+  this.successView = window.location + 'success.html';
+
+  console.log(this.hashLinks);
 
   this.states = {
     'show' : 'active',
@@ -26,7 +30,6 @@ Demo.prototype.initialize = function(){
 
   this.events();
   this.inputs.each(function(index, element){
-    console.log($(element));
     self.labelHander($(element));
   });
 };
@@ -40,11 +43,11 @@ Demo.prototype.events = function(){
   });
 
   this.hashLinks.on('click', function(event){
+    console.log('hashLinks element clicked');
     self.resetCheckout(event);
   });
 
   this.inputs.on('focus', function(){
-      // console.log('focus', self.focusClass, $(this).closest);
       $(this).closest('label').addClass(self.focusClass);
       self.labelHander($(this));
     }).on('keydown', function(){
@@ -56,8 +59,10 @@ Demo.prototype.events = function(){
 
   $(document).on( 'payment', function(event, status){
     if (status === 'success') {
+      self.bt.addClass('active');
       self.confirmation();
     } else {
+      self.bt.removeClass('active');
       self.notify(status);
     }
   });
@@ -76,8 +81,6 @@ Demo.prototype.labelHander = function(element){
   window.setTimeout(function(){
     var hasValue = (input.val().length > 0) ? true : false ;
 
-    console.log(label, input, hasValue);
-
     if (hasValue) {
       label.addClass(self.valueClass);
     } else {
@@ -90,6 +93,7 @@ Demo.prototype.labelHander = function(element){
 Demo.prototype.notify = function(status){
   var self = this;
   var notice = $('.notice-' + status );
+  var delay = (this.config.development === true) ? 2000 : 0;
 
   notice.show()
 
@@ -102,10 +106,8 @@ Demo.prototype.notify = function(status){
       window.setTimeout(function(){
         notice.hide();
       }, 310);
-    }, 3000);
+    }, delay);
   }, 10);
-
-  console.log('notify : ', status);
 };
 
 
@@ -116,7 +118,10 @@ Demo.prototype.process = function(event){
   var delay = (this.config.development === true) ? 1000 : 0;
 
   event.preventDefault();
+  self.bt.addClass('active');
   self.button.addClass(self.states.wait);
+
+  console.log(self.successView);
 
   window.setTimeout(function(){
     callback(json);
@@ -128,11 +133,15 @@ Demo.prototype.confirmation = function(){
   var self = this;
 
   this.button.addClass('out').removeClass('pulse');
-  this.checkout.removeClass(this.states.show);
+  this.checkout.removeClass(this.states.show).addClass('dismiss');
   this.success.addClass(this.states.show);
 
   window.setTimeout(function(){
     self.button.removeClass(self.states.wait);
+
+    // window.location.pathname = 'success.html';
+
+    window.location = self.successView;
   }, 500);
 };
 
