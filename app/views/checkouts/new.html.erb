@@ -33,7 +33,9 @@
 <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 <script>
   var checkout = new Demo({
-    development: true
+    development: true,
+    formID: 'payment-form',
+    onPurchase : function(data){ }
   });
 
   var client_token = "<%= @client_token %>";

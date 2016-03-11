@@ -57,7 +57,7 @@ Demo.prototype.events = function(){
       self.labelHander($(this));
   });
 
-  $(document).on( 'payment', function(event, status){
+  $(document).on('payment', function(event, status){
     if (status === 'success') {
       self.bt.addClass('active');
       self.confirmation();

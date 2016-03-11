@@ -25,19 +25,7 @@
       </div>
     </div>
 
-    <div class="notice-wrapper">
-      <div class="notice error notice-error">
-        <span class="notice-message">
-          Sorry, there was an error. Please try again.
-        </span>
-      </div>
-
-      <div class="notice error notice-declined">
-        <span class="notice-message">
-          The transaction was declined. Please try again.
-        </span>
-      </div>
-    </div>
+    <%= render partial: "layouts/notifications" %>
   </header>
 
   <%= yield %>

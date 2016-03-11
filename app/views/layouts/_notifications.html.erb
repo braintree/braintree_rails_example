@@ -1,5 +1,9 @@
-<% flash.each do |key, value| %>
-  <div class="notice <%= key %> notice-<%= key %>">
-     <span class="notice-message"><%= alert_string(value) %></span>
-  </div>
-<% end %>
+<div class="notice-wrapper">
+  <% flash.each do |key, value| %>
+    <div class="show notice <%= key %> notice-<%= key %>">
+      <span class="notice-message">
+        <%= alert_string(value) %>
+      </span>
+    </div>
+  <% end %>
+</div>

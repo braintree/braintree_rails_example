@@ -1590,7 +1590,6 @@ header a,
   transform: translateY(-100%);
   background-color: #f6f6f6;
   color: #707073;
-  display: none;
   padding: 15px;
   width: 100%; }
   .notice.error {
