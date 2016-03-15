@@ -9,7 +9,7 @@ function Demo(config){
   this.checkout = $('.checkout');
   this.success = $('.success');
   this.hashLinks = $('a[href^=#]');
-  this.successView = window.location + 'success.html';
+  this.successView = window.location.origin + '/' + this.paymentForm.attr('action');
 
   console.log(this.hashLinks);
 
@@ -57,7 +57,7 @@ Demo.prototype.events = function(){
       self.labelHander($(this));
   });
 
-  $(document).on('payment', function(event, status){
+  $(document).on( 'payment', function(event, status){
     if (status === 'success') {
       self.bt.addClass('active');
       self.confirmation();
