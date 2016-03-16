@@ -1,8 +1,8 @@
 <div class="notice-wrapper">
-  <% flash.each do |key, value| %>
-    <div class="show notice <%= key %> notice-<%= key %>">
+  <% if flash[:error] %>
+    <div class="show notice error notice-error">
       <span class="notice-message">
-        <%= alert_string(value) %>
+        <%= alert_string(flash[:error]) %>
       </span>
     </div>
   <% end %>
