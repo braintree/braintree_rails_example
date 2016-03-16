@@ -1,11 +1,21 @@
 <div class="wrapper">
   <div class="response container">
     <div class="content">
-      <h1>Sweet Success!</h1>
+      <% if @result %>
+        <div class="icon">
+          <img src="/assets/<%= @result["icon"] %>.svg" alt="">
+        </div>
 
-      <section>
-        <p>Your test transaction has been successfully processed. Test another transaction or see the Braintree API response.</p>
+        <h1><%= @result["header"] %></h1>
+        <section>
+          <p><%= @result["result"] %></p>
+        </section>
+      <% else %>
+        <section>
+          <p>Test another transaction or see the Braintree API response.</p>
       </section>
+
+      <% end %>
 
       <section>
         <a class="button primary back" href="/checkouts/new">
