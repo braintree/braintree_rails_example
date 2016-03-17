@@ -72,20 +72,6 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     context "when there are processor errors" do
-      it "displays the transaction status" do
-        amount = "2000"
-        nonce = "fake-valid-nonce"
-
-        expect(Braintree::Transaction).to receive(:sale).with(
-          amount: amount,
-          payment_method_nonce: nonce,
-        ).and_return(processor_declined_result)
-
-        post :create, payment_method_nonce: nonce, amount: amount
-
-        expect(flash[:transaction_result][:result]).to eq("Your test transaction has a status of processor_declined. See the Braintree API response and try again.")
-      end
-
       it "redirects to the transaction page" do
         amount = "2000"
         nonce = "fake-valid-nonce"

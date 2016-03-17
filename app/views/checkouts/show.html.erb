@@ -3,12 +3,12 @@
     <div class="content">
       <% if @result %>
         <div class="icon">
-          <img src="/assets/<%= @result["icon"] %>.svg" alt="">
+          <img src="/assets/<%= @result[:icon] %>.svg" alt="">
         </div>
 
-        <h1><%= @result["header"] %></h1>
+        <h1><%= @result[:header] %></h1>
         <section>
-          <p><%= @result["result"] %></p>
+          <p><%= @result[:message] %></p>
         </section>
       <% else %>
         <section>
