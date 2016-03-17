@@ -52,6 +52,31 @@ RSpec.describe CheckoutsController, type: :controller do
       expect(response.body).to match /bobby_pins.example.com/
       expect(response.body).to match /1234567890/
     end
+
+    it "populates result object with success for a succesful transaction" do
+      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_transaction)
+
+      get :show, id: "my_id"
+
+      expect(assigns(:result)).to eq({
+        :header => "Sweet Success!",
+        :icon => "success",
+        :message => "Your test transaction has been successfully processed. See the Braintree API response and try again."
+      })
+    end
+
+
+    it "populates result object with failure for a failed transaction" do
+      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_failed_transaction)
+
+      get :show, id: "my_id"
+
+      expect(assigns(:result)).to eq({
+        :header => "Transaction Failed",
+        :icon => "fail",
+        :message => "Your test transaction has a status of processor_declined. See the Braintree API response and try again."
+      })
+    end
   end
 
   describe "POST #create" do
@@ -72,20 +97,6 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     context "when there are processor errors" do
-      it "displays the transaction status" do
-        amount = "2000"
-        nonce = "fake-valid-nonce"
-
-        expect(Braintree::Transaction).to receive(:sale).with(
-          amount: amount,
-          payment_method_nonce: nonce,
-        ).and_return(processor_declined_result)
-
-        post :create, payment_method_nonce: nonce, amount: amount
-
-        expect(flash[:error]).to eq("Transaction status - processor_declined")
-      end
-
       it "redirects to the transaction page" do
         amount = "2000"
         nonce = "fake-valid-nonce"

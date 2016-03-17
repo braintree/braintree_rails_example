@@ -1,3 +1,9 @@
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>"><%= alert_string(value) %></div>
-<% end %>
+<div class="notice-wrapper">
+  <% if flash[:error] %>
+    <div class="show notice error notice-error">
+      <span class="notice-message">
+        <%= alert_string(flash[:error]) %>
+      </span>
+    </div>
+  <% end %>
+</div>
