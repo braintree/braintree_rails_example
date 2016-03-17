@@ -52,6 +52,31 @@ RSpec.describe CheckoutsController, type: :controller do
       expect(response.body).to match /bobby_pins.example.com/
       expect(response.body).to match /1234567890/
     end
+
+    it "populates result object with success for a succesful transaction" do
+      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_transaction)
+
+      get :show, id: "my_id"
+
+      expect(assigns(:result)).to eq({
+        :header => "Sweet Success!",
+        :icon => "success",
+        :message => "Your test transaction has been successfully processed. See the Braintree API response and try again."
+      })
+    end
+
+
+    it "populates result object with failure for a failed transaction" do
+      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_failed_transaction)
+
+      get :show, id: "my_id"
+
+      expect(assigns(:result)).to eq({
+        :header => "Transaction Failed",
+        :icon => "fail",
+        :message => "Your test transaction has a status of processor_declined. See the Braintree API response and try again."
+      })
+    end
   end
 
   describe "POST #create" do
