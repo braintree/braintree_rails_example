@@ -83,7 +83,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
         post :create, payment_method_nonce: nonce, amount: amount
 
-        expect(flash[:error]).to eq("Transaction status - processor_declined")
+        expect(flash[:transaction_result][:result]).to eq("Your test transaction has a status of processor_declined. See the Braintree API response and try again.")
       end
 
       it "redirects to the transaction page" do
