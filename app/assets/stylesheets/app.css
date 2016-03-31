@@ -1337,7 +1337,7 @@ label {
   font-weight: 300;
   padding: 12px 14px;
   position: relative;
-  margin-top: -1px;
+  margin-top: -11px;
   width: 100%;
   z-index: 1; }
   label .input-label {
@@ -1772,7 +1772,8 @@ td {
   .response h1 {
     margin: 0.6em 0 0.8em; }
   .response table {
-    padding: 0 3em; }
+    margin: auto;
+    max-width: 10em; }
   .response p {
     max-width: 26em;
     display: inline-block;

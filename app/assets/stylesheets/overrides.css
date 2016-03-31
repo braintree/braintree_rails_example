@@ -33,7 +33,3 @@
   src: url("/assets/bt-mono-Bold.eot");
   src: url("/assets/bt-mono-Bold.eot?#iefix") format("embedded-opentype"), url("/assets/bt-mono-Bold.woff2") format("woff2"), url("/assets/bt-mono-Bold.woff") format("woff"), url("/assets/bt-mono-Bold.ttf") format("truetype"), url("/assets/bt-mono-Bold.svg#bt_monobold") format("svg");
 }
-
-label {
-  margin-top: -11px;
-}
