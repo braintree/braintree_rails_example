@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
-
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -28,10 +26,19 @@ gem 'braintree', '~> 2.47'
 gem 'dotenv', '~> 2.0'
 
 group :development, :test do
+  # Use sqlite in development and test for ease of setup
+  gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  # Only running rspec in development and test
   gem 'rspec-rails'
+end
+
+group :production do
+  # Use postgres in production as many prod environments don't support sqlite (e.g. Heroku)
+  gem 'pg'
+  # Use Heroku asset addressing scheme and logging in production; should not affect other environments
+  gem 'rails_12factor'
 end
 
 group :development do
