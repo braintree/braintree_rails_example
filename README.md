@@ -50,7 +50,7 @@ You can run both unit and integrations tests by calling `rake spec` on the comma
 
 ## Help
 
- * Found a bug? Hava a suggestion for improvement? Want to tell us we're awesome? [Submit an issue](https://github.com/braintree/braintree_rails_example/issues)
+ * Found a bug? Have a suggestion for improvement? Want to tell us we're awesome? [Submit an issue](https://github.com/braintree/braintree_rails_example/issues)
  * Trouble with your integration? Contact [Braintree Support](https://support.braintreepayments.com/) / support@braintreepayments.com
  * Want to contribute? [Submit a pull request](https://help.github.com/articles/creating-a-pull-request)
 
