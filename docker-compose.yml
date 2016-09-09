@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: bin/rails server --port 4567 --binding 0.0.0.0
+    ports:
+      - "4567:4567"
+    volumes:
+      - .:/braintree_rails_example
