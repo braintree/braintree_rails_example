@@ -87,6 +87,9 @@ RSpec.describe CheckoutsController, type: :controller do
       expect(Braintree::Transaction).to receive(:sale).with(
         amount: amount,
         payment_method_nonce: nonce,
+        :options => {
+          :submit_for_settlement => true
+        }
       ).and_return(
         Braintree::SuccessfulResult.new(transaction: mock_transaction)
       )
@@ -104,6 +107,9 @@ RSpec.describe CheckoutsController, type: :controller do
         expect(Braintree::Transaction).to receive(:sale).with(
           amount: amount,
           payment_method_nonce: nonce,
+          :options => {
+            :submit_for_settlement => true
+          }
         ).and_return(processor_declined_result)
 
         post :create, payment_method_nonce: nonce, amount: amount
@@ -120,6 +126,9 @@ RSpec.describe CheckoutsController, type: :controller do
         expect(Braintree::Transaction).to receive(:sale).with(
           amount: amount,
           payment_method_nonce: nonce,
+          :options => {
+            :submit_for_settlement => true
+          }
         ).and_return(sale_error_result)
 
         post :create, payment_method_nonce: nonce, amount: amount
@@ -137,6 +146,9 @@ RSpec.describe CheckoutsController, type: :controller do
         expect(Braintree::Transaction).to receive(:sale).with(
           amount: amount,
           payment_method_nonce: nonce,
+          :options => {
+            :submit_for_settlement => true
+          }
         ).and_return(sale_error_result)
 
         post :create, payment_method_nonce: nonce, amount: amount

@@ -25,6 +25,9 @@ class CheckoutsController < ApplicationController
     result = Braintree::Transaction.sale(
       amount: amount,
       payment_method_nonce: nonce,
+      :options => {
+        :submit_for_settlement => true
+      }
     )
 
     if result.success? || result.transaction
