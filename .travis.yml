@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.0
+  - 2.3.1
 notifications:
   email:
     - external-ci-notifications+braintree_rails_example@getbraintree.com
