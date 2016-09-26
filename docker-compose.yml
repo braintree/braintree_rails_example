@@ -3,7 +3,6 @@ services:
   web:
     build: .
     command: bin/rails server --port 4567 --binding 0.0.0.0
-    ports:
-      - "4567:4567"
+    network_mode: host
     volumes:
       - .:/braintree_rails_example
