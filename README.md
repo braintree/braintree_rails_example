@@ -47,6 +47,10 @@ Integration tests make API calls to Braintree and require that you set up your B
 
 You can run both unit and integrations tests by calling `rake spec` on the command line.
 
+## Testing Transactions
+
+Sandbox transactions must be made with [sample credit card numbers](https://developers.braintreepayments.com/reference/general/testing/php#credit-card-numbers), and the response of a `Braintree_Transaction::sale()` call is dependent on the [amount of the transaction](https://developers.braintreepayments.com/reference/general/testing/php#test-amounts).
+
 ## Pro Tips
 
  * Run `rails s -b 0.0.0.0` when launching Rails server to listen on all interfaces.
