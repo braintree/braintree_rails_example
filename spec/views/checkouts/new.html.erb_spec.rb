@@ -23,8 +23,10 @@ RSpec.describe "checkouts/new.html.erb", type: :view do
     expect(rendered).to match /<input id="amount" name="amount" type="tel" min="1" placeholder="Amount"/
   end
 
-  it "includes the dropin payment-form div" do
+  it "includes the hosted fields placeholder divs" do
     render
-    expect(rendered).to match /<div id="bt-dropin"/
+    expect(rendered).to match /<div class="hosted-field" id="card-number"/
+    expect(rendered).to match /<div class="hosted-field" id="cvv"/
+    expect(rendered).to match /<div class="hosted-field" id="expiration-date"/
   end
 end
