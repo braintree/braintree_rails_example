@@ -9,7 +9,7 @@
         </p>
       </header>
 
-        <section class="form">
+        <section>
           <form action="/checkouts" id="payment-form" method="POST">
             <div class="form-control" id="card-number"></div>
             <div class="form-control" id="cvv"></div>
@@ -17,7 +17,6 @@
             <div class="form-control" id="postal-code"></div>
             <input class="button" type="submit" value="Pay"></input>
           </form>
-          <p></p>
         </section>
       </div>
   </div>
@@ -27,77 +26,75 @@
 
 <!-- Loads Braintree API - Hosted Fields component. -->
 <script src="https://js.braintreegateway.com/web/3.6.2/js/hosted-fields.min.js"></script>
-
 <script>
-  var form = document.querySelector('#payment-form');
-  var submit = document.querySelector('input[type="submit"]');
-  braintree.client.create({
-    authorization: "<%= @client_token %>"
-  }, function (clientErr, clientInstance) {
-    if (clientErr) {
-      console.error(clientErr);
-      return;
-    }
-    braintree.hostedFields.create({
-          client: clientInstance,
-          styles: {
-            'input': {
-              'font-size': '14px'
-            },
-            'input.invalid': {
-              'color': 'red'
-            },
-            'input.valid': {
-              'color': 'green'
-            }
+var form = document.querySelector('#payment-form');
+var submit = document.querySelector('input[type="submit"]');
+braintree.client.create({
+  authorization: "<%= @client_token %>"
+}, function (clientErr, clientInstance) {
+  if (clientErr) {
+    console.error(clientErr);
+    return;
+  }
+  braintree.hostedFields.create({
+        client: clientInstance,
+        styles: {
+          'input': {
+            'font-size': '14px'
           },
-          fields: {
-            number: {
-              selector: '#card-number',
-              placeholder: 'Card Number'
-            },
-            cvv: {
-              selector: '#cvv',
-              placeholder: 'CVV'
-            },
-            expirationDate: {
-              selector: '#expiration-date',
-              placeholder: 'Card Expiration Date (MM/YY)'
-            },
-            postalCode: {
-              selector: '#postal-code',
-              placeholder: 'Billing Zip Code'
+          'input.invalid': {
+            'color': 'red'
+          },
+          'input.valid': {
+            'color': 'green'
+          }
+        },
+        fields: {
+          number: {
+            selector: '#card-number',
+            placeholder: 'Card Number (Use: 4111 1111 1111 1111)'
+          },
+          cvv: {
+            selector: '#cvv',
+            placeholder: 'CVV'
+          },
+          expirationDate: {
+            selector: '#expiration-date',
+            placeholder: 'Card Expiration Date (MM/YYYY)'
+          },
+          postalCode: {
+            selector: '#postal-code',
+            placeholder: 'Billing Zip Code'
+          }
+        }
+      }, function (hostedFieldsErr, hostedFieldsInstance) {
+        if (hostedFieldsErr) {
+          console.error(hostedFieldsErr);
+          return;
+        }
+        submit.removeAttribute('disabled');
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+            if (tokenizeErr) {
+              console.error(tokenizeErr);
+              return;
             }
-          }
-        }, function (hostedFieldsErr, hostedFieldsInstance) {
-          if (hostedFieldsErr) {
-            console.error(hostedFieldsErr);
-            return;
-          }
-          submit.removeAttribute('disabled');
-          form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
-              if (tokenizeErr) {
-                console.error(tokenizeErr);
-                $('#notify').replaceWith(tokenizeErr.message);
-                return;
-              }
-              var payment_method_nonce = payload.nonce;
-              console.log('Got a nonce: ' + payment_method_nonce);
-              // Sends the nonce to your server.
-              var $PaymentForm = $('#payment-form');
-              var resultData = payment_method_nonce;
-              // console.log(resultData);
-              $.ajax({
-                method: $PaymentForm.attr('method'),
-                url: $PaymentForm.attr('action'),
-                data: resultData
-              }).done(function(response){
-               $("#notify").replaceWith("Congratulations! Payment succeeded.");
-              })
+            var payment_method_nonce = payload.nonce;
+            console.log('Got a nonce: ' + payment_method_nonce);
+            // Sends the nonce to your server.
+            var $PaymentForm = $('#payment-form');
+            var resultData = payment_method_nonce;
+            // console.log(resultData);
+            $.ajax({
+              method:$PaymentForm.attr('method'),
+              url: $PaymentForm.attr('action'),
+              data: resultData
+            }).done( function(response){
+              console.log("ey")
             });
-          }, false);
-        });
+          });
+        }, false);
       });
+    });
 </script>
