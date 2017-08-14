@@ -17,6 +17,7 @@
             <div class="form-control" id="postal-code"></div>
             <input class="button" type="submit" value="Pay"></input>
           </form>
+          <p class="notify"></p>
         </section>
       </div>
   </div>
@@ -52,7 +53,7 @@ braintree.client.create({
         fields: {
           number: {
             selector: '#card-number',
-            placeholder: 'Card Number (Use: 4111 1111 1111 1111)'
+            placeholder: 'Card Number'
           },
           cvv: {
             selector: '#cvv',
@@ -60,7 +61,7 @@ braintree.client.create({
           },
           expirationDate: {
             selector: '#expiration-date',
-            placeholder: 'Card Expiration Date (MM/YYYY)'
+            placeholder: 'Card Expiration Date (MM/YY)'
           },
           postalCode: {
             selector: '#postal-code',
@@ -77,8 +78,8 @@ braintree.client.create({
           event.preventDefault();
           hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
             if (tokenizeErr) {
-              console.error(tokenizeErr);
-              return;
+              $(".notify").html("Please re-enter payment details.");
+            return;
             }
             var payment_method_nonce = payload.nonce;
             console.log('Got a nonce: ' + payment_method_nonce);
@@ -90,9 +91,12 @@ braintree.client.create({
               method:$PaymentForm.attr('method'),
               url: $PaymentForm.attr('action'),
               data: resultData
-            }).done( function(response){
-              console.log("ey")
-            });
+            }).done(function(response){
+              $(".notify").html("Congrats! You made a payment.")
+              
+            }).always(function(){
+              console.log("ajax call")
+            })
           });
         }, false);
       });
