@@ -11,6 +11,7 @@ class CheckoutsController < ApplicationController
 
   def new
     @client_token = Braintree::ClientToken.generate
+    #logger.debug "#{@client_token}"
   end
 
   def show
@@ -19,17 +20,20 @@ class CheckoutsController < ApplicationController
   end
 
   def create
-    amount = params["amount"] # In production you should not take amounts directly from clients
+    amount = 10 # In production you should not take amounts directly from clients
     nonce = params["payment_method_nonce"]
-
-    result = Braintree::Transaction.sale(
-      amount: amount,
-      payment_method_nonce: nonce,
-      :options => {
-        :submit_for_settlement => true
-      }
+    customer = Braintree::Customer.create(
+      :payment_method_nonce => nonce
     )
-
+    # logger.debug "#{customer.customer.id}"
+     result = Braintree::Transaction.sale(
+       amount: amount,
+       :customer_id => customer.customer.id,
+       :options => {
+         :submit_for_settlement => true
+       }
+     )
+     logger.debug "!#{result.inspect}!"
     if result.success? || result.transaction
       redirect_to checkout_path(result.transaction.id)
     else

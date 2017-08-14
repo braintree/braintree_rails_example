@@ -9,57 +9,94 @@
         </p>
       </header>
 
-      <%= form_tag("/checkouts", method: "post", id: "payment-form") do %>
-        <section>
-          <label for="amount">
-            <span class="input-label">Amount</span>
-            <div class="input-wrapper amount-wrapper">
-              <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
-            </div>
-          </label>
-
-          <div class="bt-drop-in-wrapper">
-            <div id="bt-dropin"></div>
-          </div>
+        <section class="form">
+          <form action="/checkouts" id="payment-form" method="POST">
+            <div class="form-control" id="card-number"></div>
+            <div class="form-control" id="cvv"></div>
+            <div class="form-control" id="expiration-date"></div>
+            <div class="form-control" id="postal-code"></div>
+            <input class="button" type="submit" value="Pay"></input>
+          </form>
         </section>
-
-        <input type="hidden" id="nonce" name="payment_method_nonce" />
-        <button class="button" type="submit"><span>Test Transaction</span></button>
-      <% end %>
-
-    </div>
+      </div>
   </div>
 </div>
+            <!-- Loads Braintree - API Client component. -->
+<script src="https://js.braintreegateway.com/web/3.6.2/js/client.min.js"></script>
 
-<script src="https://js.braintreegateway.com/web/dropin/1.6.1/js/dropin.min.js"></script>
+<!-- Loads Braintree API - Hosted Fields component. -->
+<script src="https://js.braintreegateway.com/web/3.6.2/js/hosted-fields.min.js"></script>
+
 <script>
   var form = document.querySelector('#payment-form');
-  var client_token = "<%= @client_token %>";
-
-  braintree.dropin.create({
-    authorization: client_token,
-    container: '#bt-dropin',
-    paypal: {
-      flow: 'vault'
+  var submit = document.querySelector('input[type="submit"]');
+  braintree.client.create({
+    authorization: "<%= @client_token %>"
+  }, function (clientErr, clientInstance) {
+    if (clientErr) {
+      console.error(clientErr);
+      return;
     }
-  }, function (createErr, instance) {
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      instance.requestPaymentMethod(function (err, payload) {
-        if (err) {
-          console.log('Error', err);
-          return;
-        }
-
-        // Add the nonce to the form and submit
-        document.querySelector('#nonce').value = payload.nonce;
-        form.submit();
+    braintree.hostedFields.create({
+          client: clientInstance,
+          styles: {
+            'input': {
+              'font-size': '14px'
+            },
+            'input.invalid': {
+              'color': 'red'
+            },
+            'input.valid': {
+              'color': 'green'
+            }
+          },
+          fields: {
+            number: {
+              selector: '#card-number',
+              placeholder: 'Card Number'
+            },
+            cvv: {
+              selector: '#cvv',
+              placeholder: 'CVV'
+            },
+            expirationDate: {
+              selector: '#expiration-date',
+              placeholder: 'Card Expiration Date (MM/YY)'
+            },
+            postalCode: {
+              selector: '#postal-code',
+              placeholder: 'Billing Zip Code'
+            }
+          }
+        }, function (hostedFieldsErr, hostedFieldsInstance) {
+          if (hostedFieldsErr) {
+            console.error(hostedFieldsErr);
+            return;
+          }
+          submit.removeAttribute('disabled');
+          form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+              if (tokenizeErr) {
+                console.error(tokenizeErr);
+                return;
+              }
+              var payment_method_nonce = payload.nonce;
+              console.log('Got a nonce: ' + payment_method_nonce);
+              // Sends the nonce to your server.
+              var $PaymentForm = $('#payment-form');
+              var resultData = payment_method_nonce;
+              debugger
+              // console.log(resultData);
+              $.ajax({
+                method: $PaymentForm.attr('method'),
+                url: $PaymentForm.attr('action'),
+                data: resultData
+              }).done(function(response){
+               $(".form").append("Congratulations! Payment succeeded.");
+              });
+            });
+          }, false);
+        });
       });
-    });
-  });
-
-  var checkout = new Demo({
-    formID: 'payment-form'
-  });
 </script>
