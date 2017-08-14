@@ -21,14 +21,17 @@ class CheckoutsController < ApplicationController
   def create
     amount = params["amount"] # In production you should not take amounts directly from clients
     nonce = params["payment_method_nonce"]
+    #tried fake invalid nonces but couldn't get them to fail
+    vault = Braintree::Customer.create(
+      :payment_method_nonce => 'fake-processor-declined-visa-nonce'
+      )
+    # logger.debug("#{vault.inspect}")
 
     result = Braintree::Transaction.sale(
-      amount: amount,
-      payment_method_nonce: nonce,
-      :options => {
-        :submit_for_settlement => true
-      }
+      :customer_id => "#{vault.customer.id}",
+      :amount => 10
     )
+    logger.debug("#{result.success?}")
 
     if result.success? || result.transaction
       redirect_to checkout_path(result.transaction.id)
