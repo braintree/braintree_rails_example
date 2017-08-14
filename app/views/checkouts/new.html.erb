@@ -17,6 +17,7 @@
             <div class="form-control" id="postal-code"></div>
             <input class="button" type="submit" value="Pay"></input>
           </form>
+          <p></p>
         </section>
       </div>
   </div>
@@ -79,6 +80,7 @@
             hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
               if (tokenizeErr) {
                 console.error(tokenizeErr);
+                $('#notify').replaceWith(tokenizeErr.message);
                 return;
               }
               var payment_method_nonce = payload.nonce;
@@ -86,15 +88,14 @@
               // Sends the nonce to your server.
               var $PaymentForm = $('#payment-form');
               var resultData = payment_method_nonce;
-              debugger
               // console.log(resultData);
               $.ajax({
                 method: $PaymentForm.attr('method'),
                 url: $PaymentForm.attr('action'),
                 data: resultData
               }).done(function(response){
-               $(".form").append("Congratulations! Payment succeeded.");
-              });
+               $("#notify").replaceWith("Congratulations! Payment succeeded.");
+              })
             });
           }, false);
         });

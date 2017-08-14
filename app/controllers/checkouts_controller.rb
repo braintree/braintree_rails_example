@@ -33,6 +33,7 @@ class CheckoutsController < ApplicationController
          :submit_for_settlement => true
        }
      )
+
      logger.debug "!#{result.inspect}!"
     if result.success? || result.transaction
       redirect_to checkout_path(result.transaction.id)
