@@ -19,6 +19,7 @@ An example Braintree integration for Ruby on Rails.
   ```
 
 3. Copy the contents of `example.env` into a new file named `.env` and fill in your Braintree API credentials. Credentials can be found by navigating to Account > My User > View Authorizations in the Braintree Control Panel. Full instructions can be [found on our support site](https://articles.braintreepayments.com/control-panel/important-gateway-credentials#api-credentials).
+*Note:* These environment variables are needed to run this app, even if you do not have credentials.  Follow this step and leave the default values from `example.env` if you intend to work only with the unit tests.
 
 4. Start rails:
 
@@ -36,8 +37,7 @@ You can deploy this app directly to Heroku to see the app live. Skip the setup i
 
 ### Running Unit Tests
 
-Unit tests do not make API calls to Braintree and do not require Braintree credentials. You can run this project's unit tests by
-calling `rake` on the command line.
+Unit tests do not make API calls to Braintree and do not require Braintree credentials. You can run this project's unit tests by calling `rake` on the command line.  If you do not have credentials, you still need to set some environment variables.  Follow the instructions above to create a `.env` file.
 
 ### Running Integration Tests
 
