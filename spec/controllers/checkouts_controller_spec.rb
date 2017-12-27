@@ -7,13 +7,13 @@ RSpec.describe CheckoutsController, type: :controller do
 
   describe "GET #new" do
     it "returns http success" do
-      expect(Braintree::ClientToken).to receive(:generate).and_return("your_client_token")
+      expect_any_instance_of(Braintree::ClientTokenGateway).to receive(:generate).and_return("your_client_token")
       get :new
       expect(response).to have_http_status(:success)
     end
 
     it "adds the Braintree client token to the page" do
-      expect(Braintree::ClientToken).to receive(:generate).and_return("your_client_token")
+      expect_any_instance_of(Braintree::ClientTokenGateway).to receive(:generate).and_return("your_client_token")
       get :new
       expect(response.body).to match /your_client_token/
     end
@@ -21,7 +21,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_transaction)
+      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_transaction)
 
       get :show, id: "my_id"
 
@@ -29,7 +29,7 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     it "displays the transaction's fields" do
-      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_transaction)
+      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_transaction)
 
       get :show, id: "my_id"
 
@@ -54,7 +54,7 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     it "populates result object with success for a succesful transaction" do
-      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_transaction)
+      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_transaction)
 
       get :show, id: "my_id"
 
@@ -67,7 +67,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
 
     it "populates result object with failure for a failed transaction" do
-      expect(Braintree::Transaction).to receive(:find).with("my_id").and_return(mock_failed_transaction)
+      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_failed_transaction)
 
       get :show, id: "my_id"
 
@@ -84,7 +84,7 @@ RSpec.describe CheckoutsController, type: :controller do
       amount = "10.00"
       nonce = "fake-valid-nonce"
 
-      expect(Braintree::Transaction).to receive(:sale).with(
+      expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
         amount: amount,
         payment_method_nonce: nonce,
         :options => {
@@ -104,7 +104,7 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "2000"
         nonce = "fake-valid-nonce"
 
-        expect(Braintree::Transaction).to receive(:sale).with(
+        expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
           amount: amount,
           payment_method_nonce: nonce,
           :options => {
@@ -123,7 +123,7 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "not_a_valid_amount"
         nonce = "not_a_valid_nonce"
 
-        expect(Braintree::Transaction).to receive(:sale).with(
+        expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
           amount: amount,
           payment_method_nonce: nonce,
           :options => {
@@ -143,7 +143,7 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "not_a_valid_amount"
         nonce = "not_a_valid_nonce"
 
-        expect(Braintree::Transaction).to receive(:sale).with(
+        expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
           amount: amount,
           payment_method_nonce: nonce,
           :options => {
