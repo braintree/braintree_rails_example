@@ -5,15 +5,20 @@ RSpec.describe CheckoutsController, type: :controller do
   render_views
   include_context 'mock_data'
 
+  before do
+    @mock_gateway = double("gateway")
+    allow(@mock_gateway).to receive_message_chain("client_token.generate") { "your_client_token" }
+
+    expect(Braintree::Gateway).to receive(:new).and_return(@mock_gateway)
+  end
+
   describe "GET #new" do
     it "returns http success" do
-      expect_any_instance_of(Braintree::ClientTokenGateway).to receive(:generate).and_return("your_client_token")
       get :new
       expect(response).to have_http_status(:success)
     end
 
     it "adds the Braintree client token to the page" do
-      expect_any_instance_of(Braintree::ClientTokenGateway).to receive(:generate).and_return("your_client_token")
       get :new
       expect(response.body).to match /your_client_token/
     end
@@ -21,7 +26,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_transaction)
+      allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_transaction }
 
       get :show, id: "my_id"
 
@@ -29,7 +34,7 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     it "displays the transaction's fields" do
-      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_transaction)
+      allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_transaction }
 
       get :show, id: "my_id"
 
@@ -54,7 +59,7 @@ RSpec.describe CheckoutsController, type: :controller do
     end
 
     it "populates result object with success for a succesful transaction" do
-      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_transaction)
+      allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_transaction }
 
       get :show, id: "my_id"
 
@@ -67,7 +72,7 @@ RSpec.describe CheckoutsController, type: :controller do
 
 
     it "populates result object with failure for a failed transaction" do
-      expect_any_instance_of(Braintree::TransactionGateway).to receive(:find).with("my_id").and_return(mock_failed_transaction)
+      allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_failed_transaction }
 
       get :show, id: "my_id"
 
@@ -84,15 +89,9 @@ RSpec.describe CheckoutsController, type: :controller do
       amount = "10.00"
       nonce = "fake-valid-nonce"
 
-      expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
-        amount: amount,
-        payment_method_nonce: nonce,
-        :options => {
-          :submit_for_settlement => true
-        }
-      ).and_return(
+      allow(@mock_gateway).to receive_message_chain("transaction.sale") { 
         Braintree::SuccessfulResult.new(transaction: mock_transaction)
-      )
+      }
 
       post :create, payment_method_nonce: nonce, amount: amount
 
@@ -104,13 +103,9 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "2000"
         nonce = "fake-valid-nonce"
 
-        expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
-          amount: amount,
-          payment_method_nonce: nonce,
-          :options => {
-            :submit_for_settlement => true
-          }
-        ).and_return(processor_declined_result)
+        allow(@mock_gateway).to receive_message_chain("transaction.sale") { 
+          processor_declined_result
+        }
 
         post :create, payment_method_nonce: nonce, amount: amount
 
@@ -123,13 +118,9 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "not_a_valid_amount"
         nonce = "not_a_valid_nonce"
 
-        expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
-          amount: amount,
-          payment_method_nonce: nonce,
-          :options => {
-            :submit_for_settlement => true
-          }
-        ).and_return(sale_error_result)
+        allow(@mock_gateway).to receive_message_chain("transaction.sale") { 
+          sale_error_result
+        }
 
         post :create, payment_method_nonce: nonce, amount: amount
 
@@ -143,13 +134,9 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "not_a_valid_amount"
         nonce = "not_a_valid_nonce"
 
-        expect_any_instance_of(Braintree::TransactionGateway).to receive(:sale).with(
-          amount: amount,
-          payment_method_nonce: nonce,
-          :options => {
-            :submit_for_settlement => true
-          }
-        ).and_return(sale_error_result)
+        allow(@mock_gateway).to receive_message_chain("transaction.sale") { 
+          sale_error_result
+        }
 
         post :create, payment_method_nonce: nonce, amount: amount
 
