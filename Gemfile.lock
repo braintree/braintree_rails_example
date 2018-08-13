@@ -80,7 +80,7 @@ GEM
     multi_json (1.13.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
-    pg (1.0.0)
+    pg (0.21.0)
     rack (1.6.9)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -185,7 +185,7 @@ DEPENDENCIES
   dotenv (~> 2.0)
   jbuilder (~> 2.0)
   jquery-rails
-  pg
+  pg (~> 0.21.0)
   rails (= 4.2.10)
   rails_12factor
   rspec-rails
@@ -201,4 +201,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
