@@ -36,7 +36,7 @@ end
 
 group :production do
   # Use postgres in production as many prod environments don't support sqlite (e.g. Heroku)
-  gem 'pg'
+  gem 'pg', '~> 0.21.0'
   # Use Heroku asset addressing scheme and logging in production; should not affect other environments
   gem 'rails_12factor'
 end
