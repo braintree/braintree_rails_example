@@ -16,10 +16,19 @@ RSpec.describe CheckoutsController, type: :controller do
   end
 
   describe "GET #show" do
+    let(:gateway) {
+      Braintree::Gateway.new(
+        :environment =>  ENV["BT_ENVIRONMENT"].to_sym,
+        :merchant_id => ENV["BT_MERCHANT_ID"],
+        :public_key => ENV["BT_PUBLIC_KEY"],
+        :private_key => ENV["BT_PRIVATE_KEY"],
+      )
+    }
+
     it "retrieves the Braintree transaction and displays its attributes" do
       # Using a random amount to prevent duplicate checking errors
       amount = "#{random.rand(100)}.#{random.rand(100)}"
-      result = Braintree::Transaction.sale(
+      result = gateway.transaction.sale(
         :amount => amount,
         :payment_method_nonce => "fake-valid-nonce",
       )
