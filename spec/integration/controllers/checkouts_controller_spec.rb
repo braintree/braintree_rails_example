@@ -65,8 +65,8 @@ RSpec.describe CheckoutsController, type: :controller do
         amount = "2000"
         post :create, payment_method_nonce: "fake-valid-nonce", amount: amount
 
-      expect(response).not_to redirect_to(new_checkout_path)
-      expect(response).to redirect_to(/\/checkouts\/[\w+]/)
+        expect(response).not_to redirect_to(new_checkout_path)
+        expect(response).to redirect_to(/\/checkouts\/[\w+]/)
       end
 
       it "redirects to the new_checkout_path when the transaction was invalid" do
