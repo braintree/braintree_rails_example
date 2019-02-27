@@ -28,7 +28,7 @@ RSpec.describe CheckoutsController, type: :controller do
     it "returns http success" do
       allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_transaction }
 
-      get :show, id: "my_id"
+      get :show, params: { id: "my_id" }
 
       expect(response).to have_http_status(:success)
     end
@@ -36,7 +36,7 @@ RSpec.describe CheckoutsController, type: :controller do
     it "displays the transaction's fields" do
       allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_transaction }
 
-      get :show, id: "my_id"
+      get :show, params: { id: "my_id" }
 
       expect(response.body).to match /my_id/
       expect(response.body).to match /sale/
@@ -61,7 +61,7 @@ RSpec.describe CheckoutsController, type: :controller do
     it "populates result object with success for a succesful transaction" do
       allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_transaction }
 
-      get :show, id: "my_id"
+      get :show, params: { id: "my_id" }
 
       expect(assigns(:result)).to eq({
         :header => "Sweet Success!",
@@ -74,7 +74,7 @@ RSpec.describe CheckoutsController, type: :controller do
     it "populates result object with failure for a failed transaction" do
       allow(@mock_gateway).to receive_message_chain("transaction.find") { mock_failed_transaction }
 
-      get :show, id: "my_id"
+      get :show, params: { id: "my_id" }
 
       expect(assigns(:result)).to eq({
         :header => "Transaction Failed",
@@ -93,7 +93,7 @@ RSpec.describe CheckoutsController, type: :controller do
         Braintree::SuccessfulResult.new(transaction: mock_transaction)
       }
 
-      post :create, payment_method_nonce: nonce, amount: amount
+      post :create, params: { payment_method_nonce: nonce, amount: amount }
 
       expect(response).to redirect_to("/checkouts/#{mock_transaction.id}")
     end
@@ -107,7 +107,7 @@ RSpec.describe CheckoutsController, type: :controller do
           processor_declined_result
         }
 
-        post :create, payment_method_nonce: nonce, amount: amount
+        post :create, params: { payment_method_nonce: nonce, amount: amount }
 
         expect(response).to redirect_to("/checkouts/#{processor_declined_result.transaction.id}")
       end
@@ -122,7 +122,7 @@ RSpec.describe CheckoutsController, type: :controller do
           sale_error_result
         }
 
-        post :create, payment_method_nonce: nonce, amount: amount
+        post :create, params: { payment_method_nonce: nonce, amount: amount }
 
         expect(flash[:error]).to eq([
           "Error: 81503: Amount is an invalid format.",
@@ -138,7 +138,7 @@ RSpec.describe CheckoutsController, type: :controller do
           sale_error_result
         }
 
-        post :create, payment_method_nonce: nonce, amount: amount
+        post :create, params: { payment_method_nonce: nonce, amount: amount }
 
         expect(response).to redirect_to(new_checkout_path)
       end
