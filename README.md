@@ -37,15 +37,15 @@ You can deploy this app directly to Heroku to see the app live. Skip the setup i
 ### Running Unit Tests
 
 Unit tests do not make API calls to Braintree and do not require Braintree credentials. You can run this project's unit tests by
-calling `rails -R spec` on the command line.
+calling `rake` (or `rails -R spec`) on the command line.
 
 ### Running Integration Tests
 
-Integration tests make API calls to Braintree and require that you set up your Braintree credentials. You can run this project's integration tests by adding your sandbox API credentials to `.env` and calling `rails spec:integration` on the command line.
+Integration tests make API calls to Braintree and require that you set up your Braintree credentials. You can run this project's integration tests by adding your sandbox API credentials to `.env` and calling `rake spec:integration` (or `rails spec:integration`) on the command line.
 
 ### Running All Tests
 
-You can run both unit and integrations tests by calling `rails spec` on the command line.
+You can run both unit and integrations tests by calling `rake spec` (or `rails spec`) on the command line.
 
 ## Testing Transactions
 
