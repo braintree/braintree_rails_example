@@ -11,7 +11,7 @@ An example Braintree integration for Ruby on Rails.
     ```sh
     gem install bundler
     ```
-1. You may need to install `postgresql` and `mimemagic`. On a mac using Homebrew, run these commands:
+1. You may need to install `postgresql` (a production dependency) and `mimemagic`. On a mac using Homebrew, run these commands:
 
 ```
 brew install shared-mime-info
