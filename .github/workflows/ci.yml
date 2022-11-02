@@ -21,5 +21,12 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Setup Test Env
+      run: |
+        touch .env
+        echo BT_ENVIRONMENT='sandbox' >> .env
+        echo BT_MERCHANT_ID='${{ secrets.BT_MERCHANT_ID }}' >> .env
+        echo BT_PUBLIC_KEY='${{ secrets.BT_PUBLIC_KEY }}' >> .env
+        echo BT_PRIVATE_KEY='${{ secrets.BT_PRIVATE_KEY }}' >> .env
     - name: Run tests
       run: bundle exec rake spec
