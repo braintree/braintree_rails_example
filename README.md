@@ -1,4 +1,4 @@
-# Braintree Rails Example
+# Braintree Rails Example test
 
 An example Braintree integration for Ruby on Rails.
 
