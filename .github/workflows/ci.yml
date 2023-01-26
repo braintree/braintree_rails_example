@@ -24,7 +24,7 @@ jobs:
     - name: Setup Test Env
       run: |
         touch .env
-        echo BT_ENVIRONMENT='sandbox' >> .env
+        echo BT_ENVIRONMENT='${{ secrets.BT_ENVIRONMENT }}' >> .env
         echo BT_MERCHANT_ID='${{ secrets.BT_MERCHANT_ID }}' >> .env
         echo BT_PUBLIC_KEY='${{ secrets.BT_PUBLIC_KEY }}' >> .env
         echo BT_PRIVATE_KEY='${{ secrets.BT_PRIVATE_KEY }}' >> .env
