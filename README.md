@@ -1,6 +1,4 @@
-# Braintree Rails Example
-
-[![Build Status](https://travis-ci.org/braintree/braintree_rails_example.svg?branch=master)](https://travis-ci.org/braintree/braintree_rails_example)
+# Braintree Rails Example test
 
 An example Braintree integration for Ruby on Rails.
 
