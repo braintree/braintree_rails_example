@@ -9,7 +9,7 @@ permissions:
 jobs:
   test:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         ruby-version: ['2.6', '2.7'] #repo doesn't yet support 3.0 :upside_down_face:
@@ -20,9 +20,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-    - name: Install dependencies
-      run:
-        bundle install
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Setup Test Env
       run: |
         touch .env
