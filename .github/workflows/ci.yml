@@ -1,4 +1,4 @@
-name: Ruby
+name: Braintree Rails Example CI
 
 on:
   push:
