@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ["2.6", "2.7"] #repo doesn't yet support 3.0 :upside_down_face:
+        ruby-version: ["2.7"] #repo doesn't yet support 3.0 :upside_down_face:
 
     steps:
       - uses: actions/checkout@v3
