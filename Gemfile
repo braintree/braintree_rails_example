@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.4.5'
+gem 'rails', '6.1.7.3'
 # Bootsnap for Rails 5 to optimize and cache expensive computations, Read more: https://github.com/Shopify/bootsnap
 gem 'bootsnap', '1.9.1'
 # Use SCSS for stylesheets
@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'braintree', '~> 4.5'
 
 gem 'dotenv', '~> 2.0'
+
+# Avoid "already initialized constant" warnings with net-protocol
+gem 'net-http'
 
 group :development, :test do
   # Use sqlite in development and test for ease of setup
