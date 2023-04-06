@@ -20,8 +20,7 @@ Bundler.require(*Rails.groups)
 module BraintreeRailsExample
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
-    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+    config.load_defaults 6.1
     # New for Rails 5.2:
     # Make Active Record use stable #cache_key alongside new #cache_version method.
     # This is needed for recyclable cache keys.
@@ -32,7 +31,7 @@ module BraintreeRailsExample
     # ApplicationController
     Rails.application.config.action_controller.default_protect_from_forgery = true
     # Use SHA-1 instead of MD5 to generate non-sensitive digests, such as the ETag header.
-    Rails.application.config.active_support.use_sha1_digests = true
+    config.active_support.hash_digest_class = ::Digest::SHA1
     # Make `form_with` generate id attributes for any generated HTML tags.
     Rails.application.config.action_view.form_with_generates_ids = true
     # Settings in config/environments/* take precedence over those specified here.
