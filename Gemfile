@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.1.7.3'
+gem 'rails', '6.1.7.7'
 # Bootsnap for Rails to optimize and cache expensive computations, Read more: https://github.com/Shopify/bootsnap
 gem 'bootsnap', '1.16.0'
 # Use SCSS for stylesheets
