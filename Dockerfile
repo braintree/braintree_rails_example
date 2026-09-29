@@ -1,4 +1,4 @@
-FROM ruby:2.7.4
+FROM ruby:4.0.7
 
 RUN apt-get update && apt-get install -y build-essential nodejs
 
