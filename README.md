@@ -11,18 +11,13 @@ An example Braintree integration for Ruby on Rails.
 
 ## Setup Instructions
 
+Install Ruby 4.0.7 and Node.js before starting.
+
 1. Install bundler:
 
     ```sh
     gem install bundler
     ```
-1. You may need to install `postgresql` (a production dependency) and `mimemagic`. On a mac using Homebrew, run these commands:
-
-```
-brew install shared-mime-info
-brew install postgresql
-```
-
 1. Bundle:
 
     ```sh
@@ -42,7 +37,7 @@ brew install postgresql
 ### Running Unit Tests
 
 Unit tests do not make API calls to Braintree and do not require Braintree credentials. You can run this project's unit tests by
-calling `rake` (or `rails -R spec`) on the command line.
+calling `bundle exec rake spec:unit` on the command line.
 
 ### Running Integration Tests
 
